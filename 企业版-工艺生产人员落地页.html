@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>SView企业版 · 工艺人员专属 · 全功能展示</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f0f7ff;
+      color: #113355;
+      line-height: 1.5;
+      padding: 16px 12px 30px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 24px 22px;
+      box-shadow: 0 10px 22px -8px rgba(0, 70, 120, 0.12);
+      border: 1px solid #d4e2f0;
+      margin-bottom: 18px;
+    }
+
+    /* 主标题 */
+    .main-title {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #024d8c;
+      margin-bottom: 28px;
+      padding-left: 16px;
+      border-left: 6px solid #2f8bff;
+    }
+
+    .main-title span {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1978c7;
+      margin-top: 6px;
+    }
+
+    /* 特性列表 (垂直卡片) */
+    .features {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .feature-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: #f4faff;
+      border-radius: 24px;
+      padding: 18px 18px;
+      border: 1px solid #cde0f0;
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      color: #0066b4;
+      min-width: 48px;
+      text-align: center;
+    }
+
+    .feature-text {
+      flex: 1;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #153e60;
+    }
+
+    .feature-text strong {
+      font-weight: 700;
+      color: #003366;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* 新增：企业版全功能展示 (针对工艺人员) */
+    .full-function {
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 22px 20px;
+      margin-bottom: 20px;
+      border: 1px solid #c1d9f2;
+      box-shadow: 0 8px 20px rgba(0, 60, 120, 0.08);
+    }
+
+    .func-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #003e6e;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .func-title i {
+      color: #0a65b9;
+      font-size: 1.8rem;
+    }
+
+    .func-sub {
+      font-size: 1rem;
+      color: #2f5f88;
+      margin-bottom: 20px;
+      border-bottom: 2px dashed #b3d1f0;
+      padding-bottom: 12px;
+    }
+
+    .func-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;  /* 两列布局适合手机 */
+      gap: 16px 12px;
+    }
+
+    .func-item {
+      background: #f6fbff;
+      border-radius: 20px;
+      padding: 14px 8px;
+      text-align: center;
+      border: 1px solid #cde0f0;
+    }
+
+    .func-item i {
+      font-size: 1.6rem;
+      color: #0a65b9;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .func-item span {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #024d8c;
+      line-height: 1.3;
+    }
+
+    /* 价格卡片 */
+    .price-card {
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 22px 22px;
+      border: 1px solid #c6daf0;
+      box-shadow: 0 8px 20px rgba(0, 60, 120, 0.08);
+      margin-bottom: 18px;
+    }
+
+    .offer-tag {
+      background: #1e6eb5;
+      color: white;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 5px 18px;
+      border-radius: 40px;
+      display: inline-block;
+      margin-bottom: 12px;
+      letter-spacing: 0.3px;
+    }
+
+    .price-main {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 6px 15px;
+      margin-bottom: 14px;
+    }
+
+    .price-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #003e6e;
+      line-height: 1;
+    }
+
+    .price-number small {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #3d6b96;
+      margin-left: 5px;
+    }
+
+    .price-note {
+      background: #d9ebff;
+      padding: 6px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      color: #024d8c;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1rem;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 24px 0 8px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 18px 16px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: 0.15s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #0a65b9;
+      color: white;
+      box-shadow: 0 8px 18px -6px #0a65b9;
+      border: 1px solid #0a65b9;
+    }
+
+    .btn-primary i { color: white; }
+
+    .btn-secondary {
+      background: #e8f0fe;
+      border: 1.5px solid #a6c4e3;
+      color: #024d8c;
+    }
+
+    .btn-secondary i { color: #1d8f5c; }
+
+    .btn:active { transform: scale(0.98); }
+
+    /* 二维码卡片 */
+    .qr-section {
+      background: #f4fbff;
+      border-radius: 28px;
+      padding: 22px 22px;
+      margin: 16px 0 18px;
+      border: 1px solid #b9d6f2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .qr-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #003e6e;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qr-title i { color: #0a65b9; font-size: 1.6rem; }
+
+    /* 二维码样式 */
+    .qr-code-img {
+      width: 180px;  /* 适度放大，提升扫码体验 */
+      height: 180px;
+      background: #ffffff;
+      border: 3px solid #0a65b9;
+      border-radius: 24px;
+      padding: 8px;
+      margin: 6px auto 16px;
+      box-shadow: 0 6px 14px rgba(0,60,130,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-code-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+
+    .qr-hint {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #024d8c;
+      margin: 8px 0 12px;
+    }
+
+    .flex-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    .tag {
+      background: #daeaff;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.98rem;
+      color: #024d8c;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .link-row {
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 20px 22px;
+      margin: 18px 0;
+      border: 1px solid #c1d9f2;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.1rem;
+    }
+
+    .link-item:first-child { margin-bottom: 14px; }
+
+    .link-item a {
+      color: #0a65b9;
+      font-weight: 600;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .vip-badge {
+      background: #e1efff;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #004680;
+    }
+
+    .upgrade-banner {
+      background: #d6ebff;
+      border-radius: 24px;
+      padding: 20px 22px;
+      margin: 12px 0 24px;
+      border-left: 8px solid #0a65b9;
+      color: #00315c;
+    }
+
+    .upgrade-banner i {
+      font-size: 1.6rem;
+      color: #0a65b9;
+      margin-right: 12px;
+    }
+
+    .upgrade-banner strong {
+      background: #0a65b9;
+      color: white;
+      padding: 4px 16px;
+      border-radius: 40px;
+      margin-left: 8px;
+      font-size: 0.9rem;
+    }
+
+    .footnote {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #527a9e;
+      padding: 12px 4px 8px;
+    }
+
+    .footnote a { color: #0a65b9; text-decoration: none; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- 主标题 (工艺人员专属感) -->
+  <div class="main-title">
+    ⚙️ 工艺生产专属<br>SView企业版三维指导书
+    <span>精准赋能 · 工艺人员</span>
+  </div>
+
+  <!-- 三个核心特点 (保留) -->
+  <div class="features">
+    <div class="feature-row">
+      <div class="feature-icon"><i class="fas fa-cubes"></i></div>
+      <div class="feature-text"><strong>动画拆解+三维作业指导书</strong>让工艺意图准确传递至车间</div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-icon"><i class="fas fa-bolt"></i><i class="fas fa-mobile-alt" style="margin-left: -5px;"></i></div>
+      <div class="feature-text"><strong>轻量化共享，生产现场随时查看</strong>提升作业规范性</div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-icon"><i class="fas fa-arrow-trend-down"></i></div>
+      <div class="feature-text"><strong>贯通设计→工艺→生产</strong>减少沟通误差，一次做对</div>
+    </div>
+  </div>
+
+  <!-- 新增：企业版全功能展示 (针对工艺人员) -->
+  <div class="full-function">
+    <div class="func-title">
+      <i class="fas fa-crown"></i> 企业版全功能
+    </div>
+    <div class="func-sub">工艺人员专属 · 一站式三维工艺平台</div>
+    <div class="func-grid">
+      <div class="func-item"><i class="fas fa-film"></i><span>动画拆解指导书</span></div>
+      <div class="func-item"><i class="fas fa-cube"></i><span>三维工艺卡片</span></div>
+      <div class="func-item"><i class="fas fa-share-alt"></i><span>轻量化发布</span></div>
+      <div class="func-item"><i class="fas fa-mobile-alt"></i><span>车间移动查看</span></div>
+      <div class="func-item"><i class="fas fa-code-branch"></i><span>版本追踪对比</span></div>
+      <div class="func-item"><i class="fas fa-lock"></i><span>权限管理</span></div>
+      <div class="func-item"><i class="fas fa-comment-dots"></i><span>批注协同</span></div>
+      <div class="func-item"><i class="fas fa-database"></i><span>离线缓存</span></div>
+      <div class="func-item"><i class="fas fa-file-import"></i><span>40+格式兼容</span></div>
+      <div class="func-item"><i class="fas fa-chart-pie"></i><span>工艺数据看板</span></div>
+    </div>
+  </div>
+
+  <!-- 价格卡片 -->
+  <div class="price-card">
+    <span class="offer-tag"><i class="fas fa-sack-dollar"></i> 开工特惠</span>
+    <div class="price-main">
+      <span class="price-number">288<small>元/人/年</small></span>
+      <span class="price-note"><i class="fas fa-user-group"></i> 3人起购</span>
+    </div>
+    <div class="btn-group">
+      <a href="https://sview3d.com/" target="_blank" class="btn btn-primary"><i class="fas fa-arrow-right"></i> 立即体验 👉</a>
+    </div>
+  </div>
+
+  <!-- 二维码客服区 (核心修改：替换为你的二维码) -->
+  <div class="qr-section">
+    <div class="qr-title">
+      <i class="fab fa-weixin"></i> 添加客服微信
+    </div>
+    <!-- 关键修改：替换为你提供的客服二维码图片 -->
+    <div class="qr-code-img">
+      <img src="https://p3-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/1a12c013bb78443683eed315764546b9.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=20260319150333E06F644CD2283B2CA4FF&rrcfp=8a172a1a&x-expires=1774508613&x-signature=GaEr60gw%2BcWftrhA5zL6OKor7uo%3D" alt="客服微信二维码">
+    </div>
+    <div class="qr-hint">扫码添加，获取专属解决方案</div>
+    <div class="flex-tags">
+      <span class="tag"><i class="fas fa-headset"></i> 一对一咨询</span>
+      <span class="tag"><i class="fas fa-file-pdf"></i> 免费试用</span>
+    </div>
+  </div>
+
+  <!-- 链接行 -->
+  <div class="link-row">
+    <div class="link-item">
+      <i class="fas fa-globe" style="color: #0a65b9; font-size: 1.4rem;"></i>
+      <a href="https://sview3d.com/" target="_blank">官网：https://sview3d.com/</a>
+    </div>
+    <div class="link-item">
+      <i class="fas fa-download" style="color: #0a65b9; font-size: 1.4rem;"></i>
+      <a href="https://sview3d.com/download" target="_blank">下载：https://sview3d.com/download</a>
+    </div>
+  </div>
+
+  <!-- 升级提示 -->
+  <div class="upgrade-banner">
+    <i class="fas fa-rocket"></i> 企业版支持定制化部署 <strong>立即升级</strong>
+  </div>
+
+  <!-- 页脚 -->
+  <div class="footnote">
+    © 2026 SView三维轻量化引擎 | 工艺生产数字化解决方案服务商
+  </div>
+</div>
+</body>
+</html>
